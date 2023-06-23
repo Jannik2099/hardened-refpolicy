@@ -37,6 +37,14 @@ gen_tunable(init_daemons_use_tty, false)
 ## </desc>
 gen_tunable(init_mounton_non_security, false)
 
+
+## <desc>
+## <p>
+## Enable systemd to watch all non-security files.
+## </p>
+## </desc>
+gen_tunable(init_watch_non_security, false)
+
 attribute init_mountpoint_type;
 attribute init_path_unit_loc_type;
 attribute init_script_domain_type;
@@ -576,6 +584,11 @@ ifdef(`init_systemd',`
 	tunable_policy(`init_mounton_non_security',`
 		files_mounton_non_security(init_t)
 	')
+
+    tunable_policy(`init_watch_non_security',`
+        # systemd path units may watch on any file
+        allow init_t non_security_file_type:{ dir file sock_file lnk_file } watch;
+    ')
 
 	optional_policy(`
 		# to run systemd-boot-update
