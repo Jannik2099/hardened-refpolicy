@@ -716,6 +716,8 @@ dev_read_sysfs(systemd_hostnamed_t)
 
 files_read_etc_files(systemd_hostnamed_t)
 
+miscfiles_read_localization(systemd_hostnamed_t)
+
 fs_getattr_all_fs(systemd_hostnamed_t)
 
 selinux_use_status_page(systemd_hostnamed_t)
@@ -1537,6 +1539,7 @@ fs_search_ramfs(systemd_resolved_t)
 init_dgram_send(systemd_resolved_t)
 
 miscfiles_read_generic_certs(systemd_resolved_t)
+miscfiles_read_localization(systemd_resolved_t)
 
 seutil_libselinux_linked(systemd_resolved_t)
 seutil_read_file_contexts(systemd_resolved_t)
