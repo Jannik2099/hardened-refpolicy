@@ -1042,6 +1042,7 @@ dev_getattr_fs(systemd_machined_t)
 dev_setattr_urand_dev(systemd_machined_t)
 
 files_read_etc_files(systemd_machined_t)
+files_read_etc_runtime_files(systemd_machined_t)
 
 fs_getattr_cgroup(systemd_machined_t)
 fs_getattr_tmpfs(systemd_machined_t)
