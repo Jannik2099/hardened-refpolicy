@@ -1159,7 +1159,6 @@ fs_read_nsfs_files(systemd_networkd_t)
 
 auth_use_nsswitch(systemd_networkd_t)
 
-init_dgram_send(systemd_networkd_t)
 init_read_state(systemd_networkd_t)
 init_read_runtime_files(systemd_networkd_t)
 init_runtime_filetrans(systemd_networkd_t, systemd_networkd_runtime_t, dir)
@@ -1209,7 +1208,7 @@ fs_getattr_cgroup_files(systemd_notify_t)
 
 auth_use_nsswitch(systemd_notify_t)
 
-init_rw_stream_sockets(systemd_notify_t)
+init_sd_notify(systemd_notify_t)
 
 miscfiles_read_localization(systemd_notify_t)
 
@@ -1535,8 +1534,6 @@ fs_getattr_all_fs(systemd_resolved_t)
 fs_search_cgroup_dirs(systemd_resolved_t)
 fs_search_tmpfs(systemd_resolved_t)
 fs_search_ramfs(systemd_resolved_t)
-
-init_dgram_send(systemd_resolved_t)
 
 miscfiles_read_generic_certs(systemd_resolved_t)
 miscfiles_read_localization(systemd_resolved_t)
@@ -1895,9 +1892,7 @@ selinux_compute_create_context(systemd_user_session_type)
 
 storage_getattr_fixed_disk_dev(systemd_user_session_type)
 
-# for /run/systemd/notify
-init_dgram_send(systemd_user_session_type)
-init_signal(systemd_user_session_type)
+init_sd_notify(systemd_user_session_type)
 
 logging_send_audit_msgs(systemd_user_session_type)
 

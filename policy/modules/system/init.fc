@@ -77,6 +77,7 @@ ifdef(`distro_redhat',`
 /run/random-seed	--	gen_context(system_u:object_r:initrc_runtime_t,s0)
 /run/setmixer_flag	--	gen_context(system_u:object_r:initrc_runtime_t,s0)
 /run/systemd(/.*)?		gen_context(system_u:object_r:init_runtime_t,s0)
+/run/systemd/notify		gen_context(system_u:object_r:init_runtime_notify_t,s0)
 /run/wd_keepalive\.pid	--	gen_context(system_u:object_r:initrc_runtime_t,s0)
 
 ifdef(`distro_debian',`

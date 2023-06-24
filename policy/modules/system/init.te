@@ -85,6 +85,12 @@ init_mountpoint(init_runtime_t)
 init_unit_file(init_runtime_t)
 
 #
+# init_runtime_notify_t is the type for /run/systemd/notify.
+#
+type init_runtime_notify_t;
+files_runtime_file(init_runtime_notify_t)
+
+#
 # init_var_lib_t is the type for /var/lib/systemd.
 #
 type init_var_lib_t;
@@ -307,6 +313,7 @@ ifdef(`init_systemd',`
 	allow init_t self:unix_dgram_socket lock;
 
 	allow init_t init_runtime_t:sock_file manage_sock_file_perms;
+	allow init_t init_runtime_notify_t:sock_file manage_sock_file_perms;
 
 	allow init_t daemon:unix_stream_socket create_stream_socket_perms;
 	allow init_t daemon:unix_dgram_socket create_socket_perms;

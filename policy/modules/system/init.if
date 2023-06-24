@@ -105,6 +105,24 @@ interface(`init_unit_file',`
 
 ########################################
 ## <summary>
+##   Allow the domain to use sd_notify
+## </summary>
+## <param name="domain">
+##	<summary>
+##	Domain which may use sd_notify.
+##	</summary>
+## </param>
+#
+interface(`init_sd_notify',`
+	gen_require(`
+		type init_runtime_notify_t;
+	')
+
+	allow $1 init_runtime_notify_t:sock_file rw_sock_file_perms;
+')
+
+########################################
+## <summary>
 ##	Create a domain used for init scripts.
 ## </summary>
 ## <desc>
@@ -149,6 +167,9 @@ interface(`init_script_domain',`
 		allow $1 init_t:unix_stream_socket { getattr read write ioctl };
 
 		allow init_t $1:process2 { nnp_transition nosuid_transition };
+
+		# all services may use sd_notify
+		init_sd_notify($1)
 	')
 ')
 
@@ -194,6 +215,9 @@ interface(`init_domain',`
 		# StandardInputText uses a memfd rw shm segment.
 		# Cannot deny writes or it breaks.
 		allow $1 init_tmpfs_t:file rw_inherited_file_perms;
+
+		# all services may use sd_notify
+		init_sd_notify($1)
 	')
 ')
 
@@ -289,6 +313,9 @@ interface(`init_spec_daemon_domain',`
 		# StandardInputText uses a memfd rw shm segment.
 		# Cannot deny writes or it breaks.
 		allow $1 init_tmpfs_t:file rw_inherited_file_perms;
+
+		# all services may use sd_notify
+		init_sd_notify($1)
 	')
 
 	# daemons started from init will
