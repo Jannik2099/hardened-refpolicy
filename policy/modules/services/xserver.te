@@ -254,6 +254,11 @@ allow xauth_t xdm_t:fd use;
 allow xauth_t xdm_t:fifo_file { getattr read };
 allow xauth_t xdm_t:unix_stream_socket { read write };
 
+# auth file may be in /run/xdm
+allow xauth_t xdm_var_run_t:dir manage_dir_perms;
+allow xauth_t xdm_var_run_t:file manage_file_perms;
+fs_getattr_tmpfs(xauth_t)
+
 kernel_request_load_module(xauth_t)
 
 dev_read_sysfs(xauth_t)
@@ -359,6 +364,8 @@ allow xserver_t xdm_t:process signal;
 allow xdm_t xserver_t:process { noatsecure siginh rlimitinh signal sigkill };
 
 allow xdm_t xserver_t:shm rw_shm_perms;
+
+xserver_domtrans_xauth(xdm_t)
 
 # connect to xdm xserver over stream socket
 stream_connect_pattern(xdm_t, xserver_tmp_t, xserver_tmp_t, xserver_t)
