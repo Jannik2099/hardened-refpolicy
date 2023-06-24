@@ -5734,3 +5734,21 @@ interface(`dev_dontaudit_read_usbmon_dev',`
 	dontaudit $1 usbmon_device_t:chr_file read_chr_file_perms;
 ')
 
+########################################
+## <summary>
+##	Read and write to the uhid device (/dev/uhid).
+## </summary>
+## <param name="domain">
+##	<summary>
+##	Domain allowed access.
+##	</summary>
+## </param>
+#
+interface(`dev_rw_uhid',`
+	gen_require(`
+		type device_t, uhid_device_t;
+	')
+
+	rw_chr_files_pattern($1, device_t, uhid_device_t)
+')
+
